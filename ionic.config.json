@@ -1,0 +1,8 @@
+{
+  "name": "api-tarefas",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular",
+  "id": "8d066fae"
+}
