@@ -1,0 +1,41 @@
+<ion-header>
+	<ion-toolbar>
+		<ion-title>Tarefas</ion-title>
+	</ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+	<ion-item>
+		<ion-label position="stacked">Insira uma nova Tarefa</ion-label>
+		<ion-input [(ngModel)]="novaTarefa"></ion-input>
+		<ion-button slot="end" (click)="adicionarNovaTarefa()">Adicionar</ion-button>
+	</ion-item>
+	<ion-list *ngIf="tarefas.length > 0; else semTarefas">
+		<ion-list-header>
+			{{ textoListaDeTarefas }}
+		</ion-list-header>
+		<ion-item-sliding *ngFor="let tarefa of tarefas; let i = index">
+			<ion-item>
+				<ion-div slot="start">{{ i + 1 }})</ion-div>
+				<ion-label> {{ tarefa.titulo }} </ion-label>
+				<!-- <ion-chip slot="end" (click)="alterarStatusDaTarefa(i)" [ngSwitch]="tarefa.status"
+					[ngClass]="{'cadastrado': tarefa.status === 0, 'andamento': tarefa.status === 1, 'finalizado': tarefa.status === 2}">
+					<ion-label *ngSwitchCase="0">Cadastrado</ion-label>
+					<ion-label *ngSwitchCase="1">Em andamento</ion-label>
+					<ion-label *ngSwitchCase="2">Concluido</ion-label>
+					<ion-label *ngSwitchDefault>Sem status</ion-label> -->
+				<ion-chip slot="end" (click)="alterarStatusDaTarefa(i)"
+					[ngClass]="{'cadastrado': tarefa.status === 0, 'andamento': tarefa.status === 1, 'finalizado': tarefa.status === 2}">
+					<ion-label>{{ textoStatus.get(tarefa.status) }}</ion-label>
+				</ion-chip>
+			</ion-item>
+			<ion-item-options side="end">
+				<ion-item-options color="danger" (click)="deletarTarefa(i)">Deletar</ion-item-options>
+			</ion-item-options>
+		</ion-item-sliding>
+	</ion-list>
+	<ng-template #semTarefas>
+		{{ textoSemTarefas }}
+	</ng-template>
+</ion-content>
